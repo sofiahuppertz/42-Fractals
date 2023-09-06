@@ -1,36 +1,42 @@
-NAME = fractol
-LIBFT = /Libft/libft.a
+NAME	= fractol
+LIBFT	= Libft/libft.a
+MLX = minilibx-linux/libmlx_Linux.a
+LIBFT_PATH = Libft
+MLX_PATH = minilibx-linux
 
-INCLUDE = -I./ -I/Libft
-CFLAGS = -Wall -Wextra -Werror
+INCLUDE = -I./headers -I./$(LIBFT_PATH) -I./$(MLX_PATH)
+CFLAGS = -Wall -Wextra -Werror  
 
-SRC_NAMES = main.c \
-		main_helperes.c \
-		mandelbrot.c \
+SRCS_NAMES = main.c \
+			main_helpers.c \
+			mandelbrot.c \
+			mlx_helpers.c \
 
+SRCS = $(addprefix srcs/, $(SRCS_NAMES))
+OBJS = $(SRCS:c=o)
 
-SRCS = $(addprefix srcs/, $(SRC_NAMES))
-OBJS = $(SRCS:.c=.o)
+all		: $(NAME)
 
-all: $(NAME) 
-
-$(NAME) : $(LIBFT) $(OBJS)
-	cc -g $(CFLAGS) $(OBJS) -LLibft -lft -o $(NAME)
+$(NAME): $(LIBFT) $(OBJS) $(MLX)
+	cc -g3  $(OBJS) -L$(LIBFT_PATH) -lft -L$(MLX_PATH) -lmlx_Linux -lXext -lX11 -lm -lz -o $(NAME)
 
 %.o: srcs/%.c
-	cc -g $(CFLAGS) $(INCLUDE) -c $< -o $@
+	cc -g3 $(CFLAGS) $(INCLUDE) -c $< -o $@
+ 
+$(LIBFT): 
+	make -C $(LIBFT_PATH)
 
-$(LIBFT):
-	make -C Libft
+$(MLX):
+	make -C $(MLX_PATH)
 
-fclean: clean
+fclean	: clean
 	rm -f $(NAME) 
-	
-clean: 
-	rm -f $(C_OBJS)
+
+clean:
 	rm -f $(OBJS)
-	make clean -C Libft
+	make clean -C $(LIBFT_PATH)
+	make clean -C $(MLX_PATH)
 
-re: fclean all
+re		: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: clean fclean all re
