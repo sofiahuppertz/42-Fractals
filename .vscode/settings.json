@@ -1,6 +1,18 @@
 {
     "files.associations": {
         "math.h": "c",
-        "libft.h": "c"
+        "libft.h": "c",
+        "ft_printf.h": "c",
+        "climits": "c",
+        "cmath": "c",
+        "cstdarg": "c",
+        "cstdio": "c",
+        "cstdlib": "c",
+        "exception": "c",
+        "limits": "c",
+        "new": "c",
+        "*.tcc": "c",
+        "type_traits": "c",
+        "typeinfo": "c"
     }
 }

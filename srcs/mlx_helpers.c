@@ -6,37 +6,44 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:42:49 by shuppert          #+#    #+#             */
-/*   Updated: 2023/09/06 15:45:51 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:41:01 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractal.h"
 
-void	my_pixel_put(t_instance *data, int x, int y, int color)
+void	my_pixel_put(t_fractal *fractal, int x, int y, int color)
 {
-	char	*dst;
-    int offset;
-
-    offset = y * data->line_length + x * (data->bits_per_pixel / 8);
-	dst = data->adress + offset;
-	*(unsigned int*)dst = color;
+	int *buffer;
+	
+	buffer = (int *)fractal->adress;
+	buffer[(y * fractal->line_length / 4) + x] = color;
 }
 
-int 	close_window(t_instance *omega)
+int close_window(t_fractal *fractal)
 {
-	mlx_destroy_window(omega->mlx, omega->window);
-	mlx_destroy_display(omega->mlx);
-	free(omega->mlx);
-	exit(0);
-	return (0);
+	
 }
 
-int key_hook(int keycode, t_instance *omega)
+int key_hook(int keycode, t_fractal *fractal)
 {
 	if (keycode == ESC)
 	{
-		close_window(omega);
+		exit(1);
 	}
 	ft_printf("key pressed: %i\n", keycode);
 	return (0);
+}
+
+
+int	init_minilibx(t_fractal *fractal)
+{
+	fractal->mlx = mlx_init();
+	if (!fractal->mlx)
+		return (0);
+	fractal->window = mlx_new_window(fractal->mlx, WIDTH, HEIGHT, "Fractal");
+	fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
+	fractal->adress = mlx_get_data_addr(fractal->img, &fractal->bits_per_pixel,
+			&fractal->line_length, &fractal->endian);
+	return (1);
 }

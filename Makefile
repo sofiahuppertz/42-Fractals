@@ -9,6 +9,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRCS_NAMES = main.c \
 			main_helpers.c \
+			julia.c \
 			mandelbrot.c \
 			mlx_helpers.c \
 
