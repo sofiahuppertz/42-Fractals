@@ -12,42 +12,53 @@
 
 #include "../fractal.h"
 
-//Function to calculate "stability" -> 0 if stable, then number for how unstable.
-void	get_color(t_fractal *fractal, int stability_level)
+//Function to calculate "stability" -> MAX_ITER if stable, then number for how unstable.
+unsigned int	get_color(t_fracatl fractal, int iter)
 {
-    //Default behaviour
+	double			log_zn;
+	double			nu;
+	double			smooth_iter;
+	int 			alpha;
 
-    //Blue
 
-    //Green
+    if (iter == MAX_ITERATIONS)
+        return 0x000000;
+    log_zn = log(fractal->z.re * fractal->z.re + fractal->z.im * fractal->z.im) / 2;
+    nu = log(log_zn / log(2)) / log(2);
+    smooth_iter = iter + 1 - nu;
 
-    //Red
+// you can adjust the 0.1 to make the transitions happen more or less frequently.
+    int red   = (int)(255 * sin(0.1 * smooth_iter));
+    int green = (int)(255 * sin(0.1 * smooth_iter + 2));
+    int blue  = (int)(255 * sin(0.1 * smooth_iter + 4));
 
-    //perfect stabillity (black zone)
+	alpha = 255;
+    return (alpha <<24) | (red << 16) | (green << 8) | blue; 
 }
 
-int	calculate_stability(t_fractal *fractal)
+int	escape_time_calculation(t_fractal *fractal)
 {
-	double	temp;
-	int		stability;
-	int		i;
+	double	w;
+	int		iter;
+	int 	x2;
+	int		y2;
 
-	i = 1;
+	iter = 1;
+	x2 = 0;
+	y2 = 0;
 	if (fractal)
 	{
-		while (i < MAX_ITERATIONS)
+		while (x2 + y2 <= 4 && iter <= MAX_ITERATIONS)
 		{
-			temp = fractal->z.re;
-			fractal->z.re = pow(fractal->z.re, 2) - pow(fractal->z.im, 2)
-				+ fractal->c.re;
-			fractal->z.im = (2 * temp * fractal->z.im) + fractal->c.im;
-			if (pow(fractal->z.re, 2) + pow(fractal->z.im, 2) > 4)
-				break ;
-			i += 1;
+			fractal->z.im = 2 * fractal->z.re * fractal->z.im + fractal->c.im;
+			fractal->z.re = x2 - y2 + fractal->c.re;
+			x2 = fractal->z.re * fractal->z.re;
+			y2 = fractal->z.im * fractal->z.im;
+			iter += 1;
 		}
 	}
-    if (i == MAX_ITERATIONS)
+    if (iter == MAX_ITERATIONS)
         return (0);
     else
-        return (MAX_ITERATIONS - i);
+        return (iter);
 }

@@ -15,28 +15,26 @@
 int	draw_mandelbrot(t_fractal *fractal)
 {
 	unsigned int	color;
-	int 			stability_level;
-	int				column;
-	int				row;
+	int				escape_time;
+	int				x;
+	int				y;
 
-	row = 0;
-	while (row <= HEIGHT)
+	y = 0;
+	while (y <= HEIGHT)
 	{
-		fractal->c.im = 1.5 - (row / (double)HEIGHT) * 3;
-		column = 0;
-		while (column <= WIDTH)
+		fractal->c.im = 1.12 - (y / (double)HEIGHT) * 2.24 / fractal->zoom + fractal->offset_y;
+		x = 0;
+		while (x <= WIDTH)
 		{
-			fractal->c.re = -2 + (column / (double)WIDTH) * 3;
+			fractal->c.re = -2 + (x / (double)WIDTH) * 2.47 / fractal->zoom + fractal->offset_x;
 			fractal->z.re = 0;
 			fractal->z.im = 0;
-			stability_level = calculate_stability(fractal);
-			color = get_color(fractal, stability_level);
-			my_pixel_put(fractal, column, row, color);
+			escape_time = escapte_time_calculation(fractal);
+			color = get_color(fractal, escape_time);
+			my_pixel_put(fractal, x, y, color);
 		}
-		row += 1;
+		y += 1;
 	}
 	return (0);
 }
 
-
-//ADD ZOOM AND OFFSET!!
