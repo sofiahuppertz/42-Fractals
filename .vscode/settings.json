@@ -13,6 +13,7 @@
         "new": "c",
         "*.tcc": "c",
         "type_traits": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "stdio.h": "c"
     }
 }

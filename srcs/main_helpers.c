@@ -72,4 +72,5 @@ void	destroy_fractal(t_fractal *fractal)
 		}
 		free(fractal);
 	}
+	exit (1);
 }

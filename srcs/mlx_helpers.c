@@ -20,20 +20,6 @@ void	my_pixel_put(t_fractal *fractal, int x, int y, int color)
 	buffer[(y * fractal->line_length / 4) + x] = color;
 }
 
-int close_window(t_fractal *fractal)
-{
-	
-}
-
-int key_hook(int keycode, t_fractal *fractal)
-{
-	if (keycode == ESC)
-	{
-		exit(1);
-	}
-	ft_printf("key pressed: %i\n", keycode);
-	return (0);
-}
 
 
 int	init_minilibx(t_fractal *fractal)
@@ -46,4 +32,28 @@ int	init_minilibx(t_fractal *fractal)
 	fractal->adress = mlx_get_data_addr(fractal->img, &fractal->bits_per_pixel,
 			&fractal->line_length, &fractal->endian);
 	return (1);
+}
+
+int	key_press(int keycode, t_fractal *fractal)
+{
+	if (keycode == ESC)
+		destroy_fractal(fractal);
+	return (0);
+}
+
+int handle_zoom(int button, int x, int y,t_fractal *fractal)
+{
+	if (button == 4)
+	{
+		fractal->zoom *= 1.1;
+		fractal->offset_x += (x / (double)WIDTH) * 2.47 / fractal->zoom;
+		fractal->offset_y += (y / (double)HEIGHT) * 2.24 / fractal->zoom;
+	}
+	else if (button == 5)
+	{
+		fractal->zoom /= 1.1;
+		fractal->offset_x -= (x / (double)WIDTH) * 2.47 / fractal->zoom;
+		fractal->offset_y -= (y / (double)HEIGHT) * 2.24 / fractal->zoom;
+	}
+	return (0);
 }

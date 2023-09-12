@@ -33,11 +33,16 @@ int	main(int argc, char *argv[])
 void	fractalisor(t_fractal *fractal)
 {
 	//re-direct to specific fractal generator
+	if (ft_strncmp(fractal->name, "mandelbrot", 10) == 0)
+		draw_mandelbrot(fractal);
+	else if (ft_strncmp(fractal->name, "julia", 5) == 0)
+		draw_julia(fractal);
 }
 
 void set_events(t_fractal *fractal)
 {
-	//Press esc or destroy
-
-	//Mouse and zoom
+	mlx_hook(fractal->win, 3, (1L<<0), &key_press, fractal); 
+	mlx_hook(fractal->win, 17, 0, &destroy_fractal, fractal);
+	mlx_hook(fractal->win, 4, 0, &handle_zoom, fractal);
+	mlx_hook(fractal->win, 5, 0, &handle_zoom, fractal);
 }

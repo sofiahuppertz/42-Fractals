@@ -18,12 +18,16 @@
 # include "minilibx-linux/mlx.h"
 # include <math.h>
 # include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
+# define MAX_ITERATIONS 1000
 # define WIDTH 700
 # define HEIGHT 700
 # define DESTROY 17
 # define ESC 65307
-# define MAX_ITERATIONS 42
+# define SCROLL_UP 4
+# define SCROLL_DOWN 5
 
 typedef struct s_complex
 {
@@ -35,8 +39,8 @@ typedef struct s_fractal
 {
 	t_complex	c;
 	t_complex	z;
-	double		im_center;
-	double		re_center;
+	double		offset_y;
+	double		offset_x;
 	double		zoom;
 	void		*mlx;
 	void		*window;
@@ -50,10 +54,10 @@ typedef struct s_fractal
 	int			line_length;
 }				t_fractal;
 
-int				calculate_stability(t_fractal *fractal);
 int				close_window(t_fractal *fractal);
 int				draw_julia(t_fractal *fractal);
 int				draw_mandelbrot(t_fractal *fractal);
+unsigned int	get_color(t_fracatl fractal, int iter)
 int				init_fractal(int argc, char *argv[], t_fractal *fractal);
 int				init_minilibx(t_fractal *fractal);
 
