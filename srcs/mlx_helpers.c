@@ -6,7 +6,7 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:42:49 by shuppert          #+#    #+#             */
-/*   Updated: 2023/09/11 16:41:01 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:48:46 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	my_pixel_put(t_fractal *fractal, int x, int y, int color)
 {
-	int *buffer;
+	int index;
 	
-	buffer = (int *)fractal->adress;
-	buffer[(y * fractal->line_length / 4) + x] = color;
+	index = (y * fractal->line_length + x * (fractal->bits_per_pixel / 8));
+	((fractal->adress))[index / (fractal->bits_per_pixel / 8)] = color;
 }
 
 
@@ -29,7 +29,7 @@ int	init_minilibx(t_fractal *fractal)
 		return (0);
 	fractal->window = mlx_new_window(fractal->mlx, WIDTH, HEIGHT, "Fractal");
 	fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
-	fractal->adress = mlx_get_data_addr(fractal->img, &fractal->bits_per_pixel,
+	fractal->adress = (int *)mlx_get_data_addr(fractal->img, &fractal->bits_per_pixel,
 			&fractal->line_length, &fractal->endian);
 	return (1);
 }
