@@ -6,7 +6,7 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:42:49 by shuppert          #+#    #+#             */
-/*   Updated: 2023/09/13 16:48:46 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:12:00 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 void	my_pixel_put(t_fractal *fractal, int x, int y, int color)
 {
-	int index;
-	
+	int	index;
+
 	index = (y * fractal->line_length + x * (fractal->bits_per_pixel / 8));
 	((fractal->adress))[index / (fractal->bits_per_pixel / 8)] = color;
 }
-
-
 
 int	init_minilibx(t_fractal *fractal)
 {
@@ -29,8 +27,10 @@ int	init_minilibx(t_fractal *fractal)
 		return (0);
 	fractal->window = mlx_new_window(fractal->mlx, WIDTH, HEIGHT, "Fractal");
 	fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
-	fractal->adress = (int *)mlx_get_data_addr(fractal->img, &fractal->bits_per_pixel,
-			&fractal->line_length, &fractal->endian);
+	fractal->adress = (int *)mlx_get_data_addr(fractal->img,
+												&fractal->bits_per_pixel,
+												&fractal->line_length,
+												&fractal->endian);
 	return (1);
 }
 
@@ -38,10 +38,11 @@ int	key_press(int keycode, t_fractal *fractal)
 {
 	if (keycode == ESC)
 		destroy_fractal(fractal);
+	printf("keycode: %i", keycode);
 	return (0);
 }
 
-int handle_zoom(int button, int x, int y,t_fractal *fractal)
+int	handle_zoom(int button, int x, int y, t_fractal *fractal)
 {
 	if (button == 4)
 	{
@@ -55,5 +56,6 @@ int handle_zoom(int button, int x, int y,t_fractal *fractal)
 		fractal->offset_x -= (x / (double)WIDTH) * 2.47 / fractal->zoom;
 		fractal->offset_y -= (y / (double)HEIGHT) * 2.24 / fractal->zoom;
 	}
+	printf("Entered mouse hook\n");
 	return (0);
 }

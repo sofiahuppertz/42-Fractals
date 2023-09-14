@@ -6,7 +6,7 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:42:18 by shuppert          #+#    #+#             */
-/*   Updated: 2023/09/13 17:53:25 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:10:14 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 # include <stdlib.h>
 # include <time.h>
 
-# define MAX_ITERATIONS 50
-# define WIDTH 700
-# define HEIGHT 700
+# define MAX_ITERATIONS 420
+# define WIDTH 1235
+# define HEIGHT 1120
 # define DESTROY 17
-# define ESC 53
+# define ESC 65307
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 
@@ -57,10 +57,11 @@ unsigned int	get_color(t_fractal *fractal, int iter);
 
 int				draw_julia(t_fractal *fractal);
 int				draw_mandelbrot(t_fractal *fractal);
-int				escape_time_calculation(t_fractal *fractal);
 int				init_fractal(int argc, char *argv[], t_fractal *fractal);
 int				init_minilibx(t_fractal *fractal);
+int				julia_escape(t_fractal *fractal);
 int				key_press(int keycode, t_fractal *fractal);
+int				mandelbrot_escape(t_fractal *fractal);
 
 int				destroy_fractal(t_fractal *fractal);
 int				fractalisor(t_fractal *fractal);
