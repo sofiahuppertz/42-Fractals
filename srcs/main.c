@@ -6,7 +6,7 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 14:18:57 by shuppert          #+#    #+#             */
-/*   Updated: 2023/09/14 17:07:22 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:41:42 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ int	main(int argc, char *argv[])
 	{
 		if (init_minilibx(fractal))
 		{
+			
+			//fractalisor(fractal);
+			mlx_loop_hook(fractal->mlx, &fractalisor, fractal);
 			set_events(fractal);
-			fractalisor(fractal);
-			mlx_put_image_to_window(fractal->mlx, fractal->window, fractal->img, 0, 0);
 			mlx_loop(fractal->mlx);
 		}
 	}
@@ -38,6 +39,7 @@ int	fractalisor(t_fractal *fractal)
 		draw_mandelbrot(fractal);
 	else if (ft_strncmp(fractal->name, "julia", 5) == 0)
 		draw_julia(fractal);
+	mlx_put_image_to_window(fractal->mlx, fractal->window, fractal->img, 0, 0);
 	return (1);
 }
 

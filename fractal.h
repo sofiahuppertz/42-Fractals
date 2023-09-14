@@ -6,7 +6,7 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:42:18 by shuppert          #+#    #+#             */
-/*   Updated: 2023/09/14 17:10:14 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:44:06 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 # include <stdlib.h>
 # include <time.h>
 
-# define MAX_ITERATIONS 420
-# define WIDTH 1235
-# define HEIGHT 1120
+# define MAX_ITERATIONS 42
+# define WIDTH 700
+# define HEIGHT 712
 # define DESTROY 17
 # define ESC 65307
 # define SCROLL_UP 4
@@ -70,3 +70,11 @@ void			my_pixel_put(t_fractal *fractal, int x, int y, int color);
 void			set_events(t_fractal *fractal);
 
 #endif
+
+
+//TODO:
+//Random julia set doesn't change all the time.
+//Case Insensitive. New Libft function.
+//Move with arrows in the complex plane.
+//Valgrind
+//Norminette

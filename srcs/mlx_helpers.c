@@ -6,7 +6,7 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:42:49 by shuppert          #+#    #+#             */
-/*   Updated: 2023/09/14 17:12:00 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:41:33 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,27 @@ int	key_press(int keycode, t_fractal *fractal)
 {
 	if (keycode == ESC)
 		destroy_fractal(fractal);
-	printf("keycode: %i", keycode);
+	//printf("keycode: %i", keycode);
 	return (0);
 }
 
 int	handle_zoom(int button, int x, int y, t_fractal *fractal)
 {
+	printf("x: %i, y: %i", x, y);
 	if (button == 4)
 	{
-		fractal->zoom *= 1.1;
-		fractal->offset_x += (x / (double)WIDTH) * 2.47 / fractal->zoom;
-		fractal->offset_y += (y / (double)HEIGHT) * 2.24 / fractal->zoom;
+		fractal->zoom /= 1.1;
+		fractal->offset_x += x / 10;
+		fractal->offset_y += y / 10;
 	}
 	else if (button == 5)
 	{
-		fractal->zoom /= 1.1;
-		fractal->offset_x -= (x / (double)WIDTH) * 2.47 / fractal->zoom;
-		fractal->offset_y -= (y / (double)HEIGHT) * 2.24 / fractal->zoom;
+		fractal->zoom *= 1.1;
+		fractal->offset_x += x / 10;
+		fractal->offset_y += y / 10;
 	}
-	printf("Entered mouse hook\n");
 	return (0);
 }
+
+
+//Implement moving with arrows.

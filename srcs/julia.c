@@ -6,7 +6,7 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:32:42 by shuppert          #+#    #+#             */
-/*   Updated: 2023/09/14 17:12:52 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:44:45 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	draw_julia(t_fractal *fractal)
 		x = 0;
 		while (x <= WIDTH)
 		{
-			fractal->z.re = -2 + (x / (double)WIDTH) * (4 / fractal->zoom) + fractal->offset_x;
-			fractal->z.im =  2 - (y / (double)HEIGHT) * (4 / fractal->zoom) + fractal->offset_y;
+			fractal->z.re = -2 + (x / (double)WIDTH) * 4;
+			fractal->z.im =  2 - (y / (double)HEIGHT) * 4;
 			iterations = julia_escape(fractal);
 			color = get_color(fractal, iterations);
 			my_pixel_put(fractal, x, y, color);
