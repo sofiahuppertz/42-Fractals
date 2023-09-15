@@ -6,7 +6,7 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:42:18 by shuppert          #+#    #+#             */
-/*   Updated: 2023/09/15 18:17:33 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:00:56 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef struct s_fractal
 
 unsigned int	get_color(t_fractal *fractal, int iter);
 
+double			compute_smoothness(t_fractal *fractal, int iter);
+
 int				draw_julia(t_fractal *fractal);
 int				draw_mandelbrot(t_fractal *fractal);
 int				init_fractal(int argc, char *argv[], t_fractal *fractal);
@@ -64,18 +66,13 @@ int				julia_escape(t_fractal *fractal);
 int				key_hold(int keycode, t_fractal *fractal);
 int				key_press(int keycode, t_fractal *fractal);
 int				mandelbrot_escape(t_fractal *fractal);
-
 int				destroy_fractal(t_fractal *fractal);
 int				fractalisor(t_fractal *fractal);
 int				handle_zoom(int button, int x, int y, t_fractal *fractal);
+
+void			define_constant(t_fractal *fractal);
+void			define_random_constant(t_fractal *fractal);
 void			my_pixel_put(t_fractal *fractal, int x, int y, int color);
 void			set_events(t_fractal *fractal);
 
 #endif
-
-//TODO:
-//Random julia set doesn't change all the time.
-//Case Insensitive. New Libft function.
-//Move with arrows in the complex plane.
-//Valgrind
-//Norminette

@@ -6,7 +6,7 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:32:42 by shuppert          #+#    #+#             */
-/*   Updated: 2023/09/15 18:22:14 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:00:37 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,15 @@
 
 int	draw_julia(t_fractal *fractal)
 {
-	unsigned int		color;
-	static t_complex	c;
-	double				x;
-	double				y;
+	unsigned int	color;
+	double			x;
+	double			y;
 
-	y = 0;
 	if (fractal->julia != NULL)
-	{
-		if (ft_strncmp(str_to_lower(fractal->julia), "dentrite", 7) == 0)
-		{
-			fractal->c.re = 0;
-			fractal->c.im = -1;
-		}
-		else if (ft_strncmp(fractal->julia, "rabbit", 5) == 0)
-		{
-			fractal->c.re = -0.1;
-			fractal->c.im = 0.8;
-		}
-		else if (ft_strncmp(fractal->julia, "dragon", 5) == 0)
-		{
-			fractal->c.re = 0.36;
-			fractal->c.im = 0.1;
-		}
-	}
+		define_constant(fractal);
 	else
-	{
-		if (c.re == 0 && c.im == 0)
-		{
-			c.im = generate_random(-1.12, 1.12);
-			c.re = generate_random(-2, 0.47);
-		}
-		fractal->c.re = c.re;
-		fractal->c.im = c.im;
-	}
+		define_random_constant(fractal);
+	y = 0;
 	while (y <= HEIGHT)
 	{
 		x = 0;
@@ -64,6 +39,38 @@ int	draw_julia(t_fractal *fractal)
 		y += 1;
 	}
 	return (0);
+}
+
+void	define_constant(t_fractal *fractal)
+{
+	if (ft_strncmp(str_to_lower(fractal->julia), "dentrite", 7) == 0)
+	{
+		fractal->c.re = 0;
+		fractal->c.im = -1;
+	}
+	else if (ft_strncmp(fractal->julia, "rabbit", 5) == 0)
+	{
+		fractal->c.re = -0.1;
+		fractal->c.im = 0.8;
+	}
+	else if (ft_strncmp(fractal->julia, "dragon", 5) == 0)
+	{
+		fractal->c.re = 0.36;
+		fractal->c.im = 0.1;
+	}
+}
+
+void	define_random_constant(t_fractal *fractal)
+{
+	static t_complex	c;
+
+	if (c.re == 0 && c.im == 0)
+	{
+		c.im = generate_random(-1.12, 1.12);
+		c.re = generate_random(-2, 0.47);
+	}
+	fractal->c.re = c.re;
+	fractal->c.im = c.im;
 }
 
 int	julia_escape(t_fractal *fractal)
