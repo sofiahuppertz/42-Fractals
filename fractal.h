@@ -26,8 +26,10 @@
 # define HEIGHT 712
 # define DESTROY 17
 # define ESC 65307
-# define SCROLL_UP 4
-# define SCROLL_DOWN 5
+# define UP 
+# define DOWN 
+# define RIGHT
+# define LEFT
 
 typedef struct s_complex
 {

@@ -36,9 +36,15 @@ int	init_minilibx(t_fractal *fractal)
 
 int	key_press(int keycode, t_fractal *fractal)
 {
+	//printf("keycode: %i", keycode);
 	if (keycode == ESC)
 		destroy_fractal(fractal);
-	//printf("keycode: %i", keycode);
+	else if (keycode == UP)
+
+	else if (keycode == DOWN)
+	else if (keycode == LEFT)
+	else if (keycode == RIGHT)
+	
 	return (0);
 }
 
@@ -48,14 +54,14 @@ int	handle_zoom(int button, int x, int y, t_fractal *fractal)
 	if (button == 4)
 	{
 		fractal->zoom /= 1.1;
-		fractal->offset_x += x / 10;
-		fractal->offset_y += y / 10;
+		fractal->offset_x += x / 50;
+		fractal->offset_y += y / 50;
 	}
 	else if (button == 5)
 	{
 		fractal->zoom *= 1.1;
-		fractal->offset_x += x / 10;
-		fractal->offset_y += y / 10;
+		fractal->offset_x += x / 50;
+		fractal->offset_y += y / 50;
 	}
 	return (0);
 }
