@@ -23,7 +23,7 @@ int	init_fractal(int argc, char *argv[], t_fractal *fractal)
 		printf("Usage: ./fractal [fractal name] [*julia_set*]\n");
 	else
 	{
-		fractal->name = ft_strdup(argv[1]);
+		fractal->name = str_to_lower(ft_strdup(argv[1]));
 		if (ft_strncmp(fractal->name, "mandelbrott", 10) == 0)
 		{
 			return (1);
@@ -31,7 +31,7 @@ int	init_fractal(int argc, char *argv[], t_fractal *fractal)
 		else if (ft_strncmp(fractal->name, "julia", 4) == 0)
 		{
 			if (argv[2])
-				fractal->julia = ft_strdup(argv[2]);
+				fractal->julia = str_to_lower(ft_strdup(argv[2]));
 			return (1);
 		}
 		else

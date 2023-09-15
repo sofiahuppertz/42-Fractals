@@ -15,26 +15,24 @@
 int	draw_julia(t_fractal *fractal)
 {
 	unsigned int	color;
-	time_t			t;
+	static 	t_complex c;
 	double			x;
 	double y;
-	int				iterations;
 
 	y = 0;
-	//Todo: case isntesitive.
 	if (fractal->julia != NULL)
 	{
-		if (ft_strncmp(fractal->julia, "Dentrite", 7) == 0)
+		if (ft_strncmp(str_to_lower(fractal->julia), "dentrite", 7) == 0)
 		{
 			fractal->c.re = 0;
 			fractal->c.im = -1;
 		}
-		else if (ft_strncmp(fractal->julia, "Rabbit", 5) == 0)
+		else if (ft_strncmp(fractal->julia, "rabbit", 5) == 0)
 		{
 			fractal->c.re = -0.1;
 			fractal->c.im = 0.8;
 		}
-		else if (ft_strncmp(fractal->julia, "Dragon", 5) == 0)
+		else if (ft_strncmp(fractal->julia, "dragon", 5) == 0)
 		{
 			fractal->c.re = 0.36;
 			fractal->c.im = 0.1;
@@ -42,10 +40,13 @@ int	draw_julia(t_fractal *fractal)
 	}
 	else
 	{
-		//TODO: make this into a libft function.
-		srand((unsigned)time(&t));
-		fractal->c.im = (rand() / (double)RAND_MAX) * 2 - 1.12;
-		fractal->c.re = (rand() / (double)RAND_MAX) * 2.47 - 2;
+		if (c.re == 0 && c.im == 0)
+		{
+			c.im = generate_random(-1.12, 1.12)
+			c.re = generate_random(-2, 0.47);
+		}
+		fractal->c.re = c.re;
+		fractal->c.im = c.im;
 	}
 	while (y <= HEIGHT)
 	{
@@ -54,8 +55,7 @@ int	draw_julia(t_fractal *fractal)
 		{
 			fractal->z.re = -2 + (x / (double)WIDTH) * 4;
 			fractal->z.im =  2 - (y / (double)HEIGHT) * 4;
-			iterations = julia_escape(fractal);
-			color = get_color(fractal, iterations);
+			color = get_color(fractal, julia_escape(fractal));
 			my_pixel_put(fractal, x, y, color);
 			x += 1;
 		}

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display_adress.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/27 13:31:35 by shuppert          #+#    #+#             */
+/*   Updated: 2023/08/27 13:31:40 by shuppert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int	display_ptr_recursive(unsigned long long int num)
@@ -24,7 +36,7 @@ int	display_ptr_recursive(unsigned long long int num)
 
 int	display_pointer(unsigned long long int num)
 {
-	int count;
+	int	count;
 
 	if (num == 0)
 	{
@@ -36,6 +48,5 @@ int	display_pointer(unsigned long long int num)
 		count = ft_printf("0x");
 		count += display_ptr_recursive(num);
 	}
-
-    return (count);
+	return (count);
 }

@@ -14,8 +14,12 @@
 
 static int	free_all(char **str, int size)
 {
-	while (size--)
+	while (size >= 0)
+	{
 		free(str[size]);
+		size--;
+	}
+	free(str);
 	return (-1);
 }
 

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   str_array_length.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 15:50:51 by shuppert          #+#    #+#             */
-/*   Updated: 2023/05/09 12:28:42 by shuppert         ###   ########.fr       */
+/*   Created: 2023/08/27 13:32:35 by shuppert          #+#    #+#             */
+/*   Updated: 2023/08/27 13:32:40 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+size_t	str_array_length(const char **str_array)
 {
-	t_list	*new;
+	size_t	i;
 
-	new = (t_list *)malloc(sizeof(t_list));
-	if (!new)
-		return (NULL);
-	new->content = content;
-	new->next = NULL;
-	return (new);
+	i = 0;
+	while (str_array[i] != 0)
+	{
+		i++;
+	}
+	return (i);
 }
