@@ -6,7 +6,7 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:42:39 by shuppert          #+#    #+#             */
-/*   Updated: 2023/09/14 17:38:39 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:24:30 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ int	draw_mandelbrot(t_fractal *fractal)
 	y = 0;
 	while (y <= HEIGHT)
 	{
-		fractal->c.im = 1.12 - ((y + fractal->offset_y) / (double)HEIGHT) * 2.24 *fractal->zoom;
+		fractal->c.im = 1.12 - ((y + fractal->offset_y) / (double)HEIGHT) * 2.24
+			* fractal->zoom;
 		x = 0;
 		while (x <= WIDTH)
 		{
-
-			fractal->c.re = -2 + ((x + fractal->offset_x) / (double)WIDTH) * 2.47 * fractal->zoom ;
+			fractal->c.re = -2 + ((x + fractal->offset_x) / (double)WIDTH)
+				* 2.47 * fractal->zoom;
 			fractal->z.re = 0;
 			fractal->z.im = 0;
 			color = get_color(fractal, mandelbrot_escape(fractal));
@@ -40,7 +41,7 @@ int	draw_mandelbrot(t_fractal *fractal)
 
 int	mandelbrot_escape(t_fractal *fractal)
 {
-	int	iter;
+	int		iter;
 	double	x2;
 	double	y2;
 
@@ -60,6 +61,3 @@ int	mandelbrot_escape(t_fractal *fractal)
 	}
 	return (iter);
 }
-
-
-//TODO: generate random julia value only once.

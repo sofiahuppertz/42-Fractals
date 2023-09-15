@@ -6,7 +6,7 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 14:18:57 by shuppert          #+#    #+#             */
-/*   Updated: 2023/09/14 17:41:42 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:24:54 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	main(int argc, char *argv[])
 	{
 		if (init_minilibx(fractal))
 		{
-			
-			//fractalisor(fractal);
 			mlx_loop_hook(fractal->mlx, &fractalisor, fractal);
 			set_events(fractal);
 			mlx_loop(fractal->mlx);
@@ -34,7 +32,6 @@ int	main(int argc, char *argv[])
 
 int	fractalisor(t_fractal *fractal)
 {
-	//re-direct to specific fractal generator
 	if (ft_strncmp(fractal->name, "mandelbrot", 10) == 0)
 		draw_mandelbrot(fractal);
 	else if (ft_strncmp(fractal->name, "julia", 5) == 0)
@@ -43,9 +40,10 @@ int	fractalisor(t_fractal *fractal)
 	return (1);
 }
 
-void set_events(t_fractal *fractal)
+void	set_events(t_fractal *fractal)
 {
 	mlx_key_hook(fractal->window, key_press, fractal);
 	mlx_mouse_hook(fractal->window, handle_zoom, fractal);
 	mlx_hook(fractal->window, 17, 0L, destroy_fractal, fractal);
+	mlx_hook(fractal->window, 2, 1L << 0, key_hold, fractal);
 }

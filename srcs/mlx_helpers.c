@@ -6,7 +6,7 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:42:49 by shuppert          #+#    #+#             */
-/*   Updated: 2023/09/14 17:41:33 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:24:16 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,43 +28,58 @@ int	init_minilibx(t_fractal *fractal)
 	fractal->window = mlx_new_window(fractal->mlx, WIDTH, HEIGHT, "Fractal");
 	fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
 	fractal->adress = (int *)mlx_get_data_addr(fractal->img,
-												&fractal->bits_per_pixel,
-												&fractal->line_length,
-												&fractal->endian);
+			&fractal->bits_per_pixel, &fractal->line_length, &fractal->endian);
 	return (1);
 }
 
 int	key_press(int keycode, t_fractal *fractal)
 {
-	//printf("keycode: %i", keycode);
+	double	move_factor;
+
+	move_factor = 1.0 / fractal->zoom;
 	if (keycode == ESC)
 		destroy_fractal(fractal);
-	else if (keycode == UP)
+	if (keycode == SPACE)
+	{
+		fractal->zoom = 1;
+		fractal->offset_x -= fractal->offset_x;
+		fractal->offset_y -= fractal->offset_y;
+	}
+	return (0);
+}
 
+int	key_hold(int keycode, t_fractal *fractal)
+{
+	double	move_factor;
+
+	move_factor = 1 / fractal->zoom;
+	if (keycode == UP)
+		fractal->offset_y -= move_factor;
 	else if (keycode == DOWN)
-	else if (keycode == LEFT)
+		fractal->offset_y += move_factor;
 	else if (keycode == RIGHT)
-	
+		fractal->offset_x += move_factor;
+	else if (keycode == LEFT)
+		fractal->offset_x -= move_factor;
 	return (0);
 }
 
 int	handle_zoom(int button, int x, int y, t_fractal *fractal)
 {
-	printf("x: %i, y: %i", x, y);
+	double	dynamic_zoom_factor;
+
+	dynamic_zoom_factor = 1.0 + 0.05 / (fractal->zoom / 100.0 + 1);
+	fractal->offset_x -= (double)x / fractal->zoom;
+	fractal->offset_y -= (double)y / fractal->zoom;
 	if (button == 4)
 	{
-		fractal->zoom /= 1.1;
-		fractal->offset_x += x / 50;
-		fractal->offset_y += y / 50;
+		fractal->zoom /= dynamic_zoom_factor;
 	}
 	else if (button == 5)
 	{
-		fractal->zoom *= 1.1;
-		fractal->offset_x += x / 50;
-		fractal->offset_y += y / 50;
+		fractal->zoom *= dynamic_zoom_factor;
 	}
+	fractal->offset_x += (double)x / fractal->zoom;
+	fractal->offset_y += (double)y / fractal->zoom;
 	return (0);
 }
-
-
-//Implement moving with arrows.

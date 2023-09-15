@@ -6,7 +6,7 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:57:05 by shuppert          #+#    #+#             */
-/*   Updated: 2023/08/27 15:05:33 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:26:21 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <stdlib.h>
 # include <time.h>
 # include <unistd.h>
-
 
 typedef struct s_list
 {
@@ -54,7 +53,7 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_atoi(const char *str);
 int					ft_lstsize(t_list *lst);
 
-double  			generate_random(double min, double max);
+double				generate_random(double min, double max);
 
 size_t				ft_strlen(const char *s);
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);

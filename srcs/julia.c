@@ -6,7 +6,7 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:32:42 by shuppert          #+#    #+#             */
-/*   Updated: 2023/09/14 17:44:45 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:22:14 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	draw_julia(t_fractal *fractal)
 {
-	unsigned int	color;
-	static 	t_complex c;
-	double			x;
-	double y;
+	unsigned int		color;
+	static t_complex	c;
+	double				x;
+	double				y;
 
 	y = 0;
 	if (fractal->julia != NULL)
@@ -42,7 +42,7 @@ int	draw_julia(t_fractal *fractal)
 	{
 		if (c.re == 0 && c.im == 0)
 		{
-			c.im = generate_random(-1.12, 1.12)
+			c.im = generate_random(-1.12, 1.12);
 			c.re = generate_random(-2, 0.47);
 		}
 		fractal->c.re = c.re;
@@ -53,8 +53,10 @@ int	draw_julia(t_fractal *fractal)
 		x = 0;
 		while (x <= WIDTH)
 		{
-			fractal->z.re = -2 + (x / (double)WIDTH) * 4;
-			fractal->z.im =  2 - (y / (double)HEIGHT) * 4;
+			fractal->z.re = -2 + ((x + fractal->offset_x) / (double)WIDTH) * 4
+				* fractal->zoom;
+			fractal->z.im = 2 - ((y + fractal->offset_y) / (double)HEIGHT) * 4
+				* fractal->zoom;
 			color = get_color(fractal, julia_escape(fractal));
 			my_pixel_put(fractal, x, y, color);
 			x += 1;
@@ -64,18 +66,18 @@ int	draw_julia(t_fractal *fractal)
 	return (0);
 }
 
-int julia_escape(t_fractal *fractal)
+int	julia_escape(t_fractal *fractal)
 {
 	int		iter;
 	double	xtemp;
 
 	iter = 0;
-	while (fractal->z.re * fractal->z.re + fractal->z.im
-			* fractal->z.im < 4 && iter <= MAX_ITERATIONS)
+	while (fractal->z.re * fractal->z.re + fractal->z.im * fractal->z.im < 4
+		&& iter <= MAX_ITERATIONS)
 	{
 		xtemp = fractal->z.re;
-		fractal->z.re = fractal->z.re * fractal->z.re - fractal->z.im * fractal->z.im
-			+ fractal->c.re;
+		fractal->z.re = fractal->z.re * fractal->z.re - fractal->z.im
+			* fractal->z.im + fractal->c.re;
 		fractal->z.im = 2 * fractal->z.im * xtemp + fractal->c.im;
 		iter += 1;
 	}

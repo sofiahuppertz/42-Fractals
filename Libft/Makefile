@@ -6,7 +6,7 @@
 #    By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/04 18:35:09 by shuppert          #+#    #+#              #
-#    Updated: 2023/07/19 17:48:33 by shuppert         ###   ########.fr        #
+#    Updated: 2023/09/15 17:22:41 by shuppert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,12 +81,7 @@ objects/%.o: srcs/%.c
 $(LIB_NAME): $(OBJS)
 	ar rcs $(LIB_NAME) $(OBJS)
 
-all: $(LIB_NAME)
-
-fclean: clean
-	rm -f all
-
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(LIB_NAME)
 
-.PHONY: clean re fclean all
+.PHONY: clean re
