@@ -6,7 +6,7 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:32:42 by shuppert          #+#    #+#             */
-/*   Updated: 2023/09/15 19:00:37 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:55:11 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	draw_julia(t_fractal *fractal)
 	else
 		define_random_constant(fractal);
 	y = 0;
-	while (y <= HEIGHT)
+	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x <= WIDTH)
+		while (x < WIDTH)
 		{
 			fractal->z.re = -2 + ((x + fractal->offset_x) / (double)WIDTH) * 4
 				* fractal->zoom;
@@ -79,14 +79,19 @@ int	julia_escape(t_fractal *fractal)
 	double	xtemp;
 
 	iter = 0;
-	while (fractal->z.re * fractal->z.re + fractal->z.im * fractal->z.im < 4
-		&& iter <= MAX_ITERATIONS)
+	if (fractal)
 	{
-		xtemp = fractal->z.re;
-		fractal->z.re = fractal->z.re * fractal->z.re - fractal->z.im
-			* fractal->z.im + fractal->c.re;
-		fractal->z.im = 2 * fractal->z.im * xtemp + fractal->c.im;
-		iter += 1;
+		while (fractal->z.re * fractal->z.re + fractal->z.im
+			* fractal->z.im < 4)
+		{
+			if (iter > MAX_ITERATIONS)
+				break ;
+			xtemp = fractal->z.re;
+			fractal->z.re = fractal->z.re * fractal->z.re - fractal->z.im
+				* fractal->z.im + fractal->c.re;
+			fractal->z.im = 2 * fractal->z.im * xtemp + fractal->c.im;
+			iter += 1;
+		}
 	}
 	return (iter);
 }

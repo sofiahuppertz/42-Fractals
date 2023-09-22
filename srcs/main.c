@@ -6,7 +6,7 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 14:18:57 by shuppert          #+#    #+#             */
-/*   Updated: 2023/09/15 18:33:05 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:52:59 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int	main(int argc, char *argv[])
 {
 	t_fractal	*fractal;
 
-	fractal = malloc(sizeof(t_fractal));
+	fractal = ft_calloc(sizeof(t_fractal), 1);
+	if (!fractal)
+		return (1);
 	if (init_fractal(argc, argv, fractal))
 	{
 		if (init_minilibx(fractal))

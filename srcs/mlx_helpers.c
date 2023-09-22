@@ -6,7 +6,7 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:42:49 by shuppert          #+#    #+#             */
-/*   Updated: 2023/09/15 18:24:16 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:22:13 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	my_pixel_put(t_fractal *fractal, int x, int y, int color)
 int	init_minilibx(t_fractal *fractal)
 {
 	fractal->mlx = mlx_init();
-	if (!fractal->mlx)
+	if (!(fractal->mlx))
 		return (0);
 	fractal->window = mlx_new_window(fractal->mlx, WIDTH, HEIGHT, "Fractal");
 	fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);

@@ -6,7 +6,7 @@
 /*   By: shuppert <shuppert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 14:15:19 by shuppert          #+#    #+#             */
-/*   Updated: 2023/09/15 17:55:05 by shuppert         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:53:59 by shuppert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 int	init_fractal(int argc, char *argv[], t_fractal *fractal)
 {
 	fractal->zoom = 1;
-	fractal->offset_x = 0;
-	fractal->offset_x = 0;
 	fractal->julia = NULL;
 	if (argc < 2)
 		printf("Usage: ./fractal [fractal name] [*julia_set*]\n");
